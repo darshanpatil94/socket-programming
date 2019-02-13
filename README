@@ -1,10 +1,12 @@
 NAME: DARSHAN PATIL
 USC-ID: 9575227834
 
--------------------------------------------------------------------------------------------------------------------------------------
-In this project I Implemented a model computational offloading where a single client issues three parameters (link ID, file size, and signal power) to the AWS server and expects the reply for the end-to-end delay of the designated link. AWS server communicates with client and monitor via TCP, and AWS communicates with 2 storage servers (A, B), and computational server(C) via UDP.
-
--------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+In this project I Implemented a model computational offloading where a single client issues three parameters 
+(link ID, file size, and signal power) to the AWS server and expects the reply for the end-to-end delay of the 
+designated link. AWS server communicates with client and monitor via TCP, and AWS communicates with 2 storage 
+servers (A, B), and computational server(C) via UDP.
+---------------------------------------------------------------------------------------------------------------
 Code Files
 ServerA.cpp : This program Serves the data from database_a.csv related to client provided link Id 
 
@@ -13,15 +15,18 @@ ServerB.cpp : This program Serves the data from database_b.csv related to client
 ServerC.cpp : This program computes the end-to-end delay from the client provided link information
 
 aws.cpp	    : This program acts as an inter-mediate server between client and back-end servers.
-	      It gets the link-id from the client and send it to serverA and serverB to get data related to link-id, later send it to serverC to compute end-to-end delay. Thus, sends the result back to client. It also sends messages to monitor to display. 
+	      It gets the link-id from the client and send it to serverA and serverB to get data related to link-id, 
+	      later send it to serverC to compute end-to-end delay. Thus, sends the result back to client. It also sends 
+	      messages to monitor to display. 
 
 monitor.cpp : It displays the messages received from the AWS
 
-client.cpp :  It gets the link-id file-size, and signal power from the user(i.e.from terminal), and sends it to AWS and expects to get back end-to-end delay.
+client.cpp :  It gets the link-id file-size, and signal power from the user(i.e.from terminal), and sends it to AWS and 
+	      expects to get back end-to-end delay.
 
 Makefile: It Contains code to build and run project.
 
--------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 Format of Messages Exchanged
 
 Client <-----> AWS [TCP]
@@ -33,7 +38,8 @@ Client <-----> AWS [TCP]
 ~ AWS recieves information related to link-id from the back-end serverA or serverB
 ~ Gets the information in array buf[]
 ~ Concatenate the values from the array buf[] to the V[]
-~ Now in V[] array we have information in this format:(link-id, filesize, signal-power, bandwidth, length,velocity,noise-power)
+~ Now in V[] array we have information in this format:
+  Format: (link-id, filesize, signal-power, bandwidth,length,velocity,noise-power)
 ~ AWS Sends this information to ServerC to calculate End-to-end delay.
 ~ AWS recieves result in store in an array res[]=(Transmission delay, propagation delay, and end-to-end delay)
 ~ AWS sends the result to monitor
@@ -51,8 +57,10 @@ AWS <--------> ServerC [UDP]
 ~ ServerC sends the results to AWS
 
 AWS <--------> Monitor [TCP]
-~ AWS sends the array A[] recieved from client to Monitor to display link-id, filesize, and signal power received from client.
-~ AWS sends the result array res[] recieved from computational serverC to display transmission delay, propogation delay, and end-to-end delay.
+~ AWS sends the array A[] recieved from client to Monitor to display link-id, filesize, and signal power received 
+  from client.
+~ AWS sends the result array res[] recieved from computational serverC to display transmission delay, propogation delay, 
+  and end-to-end delay.
 
 -------------------------------------------------------------------------------------------------------------------------------------
 Reference:
